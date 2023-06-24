@@ -21,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookApiClient {
     private static final String FAILED_TO_RETRIEVE_BOOK_FROM_API = "Failed to retrieve book from API";
+    public static final String ERROR = "error: {}";
     @Value("${api.base-url}")
     private String baseUrl;
 
@@ -35,12 +36,14 @@ public class BookApiClient {
             Invocation.Builder request = client.target(baseUrl + "/all-books").request(MediaType.APPLICATION_JSON);
             Response response = request.get();
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                log.info("Fetching books...");
                 return response.readEntity(new GenericType<List<BookDto>>() {
                 });
             } else {
                 throw new CustomException(FAILED_TO_RETRIEVE_BOOK_FROM_API);
             }
         } catch (Exception ex) {
+            log.error(ERROR, ex.getMessage());
             throw new CustomException(FAILED_TO_RETRIEVE_BOOK_FROM_API);
         }
     }
@@ -50,11 +53,13 @@ public class BookApiClient {
             Invocation.Builder request = client.target(baseUrl + "/book/" + id).request(MediaType.APPLICATION_JSON);
             Response response = request.get();
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
+                log.info("Fetching book with id: {}", id);
                 return response.readEntity(BookDto.class);
             } else {
                 throw new CustomException(FAILED_TO_RETRIEVE_BOOK_FROM_API);
             }
         } catch (Exception ex) {
+            log.error(ERROR, ex.getMessage());
             throw new CustomException(FAILED_TO_RETRIEVE_BOOK_FROM_API);
         }
     }
@@ -66,7 +71,9 @@ public class BookApiClient {
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 throw new CustomException("Failed to add book to API");
             }
+            log.info("Adding book");
         } catch (Exception ex) {
+            log.error(ERROR, ex.getMessage());
             throw new CustomException("Failed to add book to API");
         }
     }
@@ -78,7 +85,9 @@ public class BookApiClient {
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 throw new CustomException("Failed to update book in API");
             }
+            log.info("Updated book with id: {}", id);
         } catch (Exception ex) {
+            log.error(ERROR, ex.getMessage());
             throw new CustomException("Failed to update book in API");
         }
     }
@@ -90,7 +99,9 @@ public class BookApiClient {
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 throw new CustomException("Failed to delete book from API");
             }
+            log.info("Deleted book with id: {}", id);
         } catch (Exception ex) {
+            log.error(ERROR, ex.getMessage());
             throw new CustomException("Failed to delete book from API");
         }
     }

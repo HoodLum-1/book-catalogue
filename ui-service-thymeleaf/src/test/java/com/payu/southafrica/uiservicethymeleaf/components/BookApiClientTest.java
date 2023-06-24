@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class BookApiClientTest {
 
-    private static final String BASE_URL = "http://localhost.com";
+    private static final String BASE_URL = "http://localhost:5000/api/books";
 
     @Mock
     private Client client;

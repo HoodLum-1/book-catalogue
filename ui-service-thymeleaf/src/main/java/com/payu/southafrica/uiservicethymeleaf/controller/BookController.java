@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("/books")
 @RequiredArgsConstructor
 public class BookController {
+    public static final String REDIRECT_BOOKS_ALL_BOOKS = "redirect:/books/all-books";
     private final BookApiClient bookApiClient;
 
     @GetMapping("/all-books")
@@ -31,7 +32,7 @@ public class BookController {
     @PostMapping("/add-book")
     public String addBook(@ModelAttribute BookDto book) {
         bookApiClient.addBook(book);
-        return "redirect:/books/all-books";
+        return REDIRECT_BOOKS_ALL_BOOKS;
     }
 
     @GetMapping("/edit-book/{id}")
@@ -44,12 +45,12 @@ public class BookController {
     @PostMapping("/edit-book/{id}")
     public String updateBook(@PathVariable Long id, @ModelAttribute BookDto book) {
         bookApiClient.updateBook(id, book);
-        return "redirect:/books/all-books";
+        return REDIRECT_BOOKS_ALL_BOOKS;
     }
 
     @GetMapping("/delete-book/{id}")
     public String deleteBook(@PathVariable Long id) {
         bookApiClient.deleteBook(id);
-        return "redirect:/books/all-books";
+        return REDIRECT_BOOKS_ALL_BOOKS;
     }
 }
