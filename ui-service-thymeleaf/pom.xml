@@ -68,6 +68,55 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.openrewrite.maven</groupId>
+				<artifactId>rewrite-maven-plugin</artifactId>
+				<version>5.2.2</version>
+				<configuration>
+					<activeRecipes>
+						<!--						<recipe>io.moderne.FindTest</recipe>-->
+						<!--						<recipe>org.openrewrite.java.cleanup.Cleanup</recipe>-->
+						<recipe>org.openrewrite.java.format.AutoFormat</recipe>
+						<recipe>org.openrewrite.java.spring.boot2.SpringBoot2BestPractices</recipe>
+						<recipe>org.openrewrite.staticanalysis.CommonStaticAnalysis</recipe>
+						<recipe>org.openrewrite.java.logging.slf4j.Slf4jBestPractices</recipe>
+						<recipe>org.openrewrite.java.testing.assertj.Assertj</recipe>
+						<recipe>org.openrewrite.java.testing.assertj.JUnitToAssertj</recipe>
+						<!--						<recipe>org.openrewrite.java.testing.junit5.JUnit5BestPractices</recipe>-->
+						<!--						<recipe>org.openrewrite.github.ActionsSetupJavaAdoptOpenJDKToTemurin</recipe>-->
+					</activeRecipes>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.openrewrite.recipe</groupId>
+						<artifactId>rewrite-static-analysis</artifactId>
+						<version>1.0.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.openrewrite.recipe</groupId>
+						<artifactId>rewrite-spring</artifactId>
+						<version>5.0.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.openrewrite.recipe</groupId>
+						<artifactId>rewrite-logging-frameworks</artifactId>
+						<version>2.0.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.openrewrite.recipe</groupId>
+						<artifactId>rewrite-testing-frameworks</artifactId>
+						<version>2.0.2</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.2</version>
+				<configuration>
+					<configLocation>checkstyle.xml</configLocation>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
