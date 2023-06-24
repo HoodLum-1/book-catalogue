@@ -14,7 +14,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -37,8 +38,8 @@ class BookServiceTest {
 
         List<BookDto> result = bookService.getAllBooks();
 
-        assertNotNull(bookRepository.findAll());
-        assertEquals(1, result.size());
+        assertThat(bookRepository.findAll()).isNotNull();
+        assertThat(result).hasSize(1);
     }
 
     @Test
@@ -47,16 +48,16 @@ class BookServiceTest {
 
         BookDto result = bookService.getBookById(createBookDto().getId());
 
-        assertNotNull(result);
-        assertNotNull(bookRepository.findById(createBookDto().getId()));
-        assertEquals(1L, result.getId());
+        assertThat(result).isNotNull();
+        assertThat(bookRepository.findById(createBookDto().getId())).isNotNull();
+        assertThat(result.getId()).isEqualTo(1L);
     }
 
     @Test
     void getBookById_NonExistingBookId_ThrowsBookNotFoundException() {
         when(bookRepository.findById(any())).thenReturn(Optional.empty());
 
-        assertThrows(BookNotFoundException.class, () -> bookService.getBookById(createBookDto().getId()));
+        assertThatExceptionOfType(BookNotFoundException.class).isThrownBy(() -> bookService.getBookById(createBookDto().getId()));
     }
 
     @Test
@@ -79,7 +80,7 @@ class BookServiceTest {
     void updateBook_NonExistingBookId_ThrowsBookNotFoundException() {
         when(bookRepository.findById(createBookDto().getId())).thenReturn(Optional.empty());
 
-        assertThrows(BookNotFoundException.class, () -> bookService.updateBook(any(), createBookDto()));
+        assertThatExceptionOfType(BookNotFoundException.class).isThrownBy(() -> bookService.updateBook(any(), createBookDto()));
     }
 
     @Test
