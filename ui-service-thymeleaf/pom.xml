@@ -12,7 +12,7 @@
 	<artifactId>ui-service-thymeleaf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ui-service-thymeleaf</name>
-	<description>A Spring Boot service that serves as the user interface for the book catalog</description>
+	<description>A Spring Boot service that serves as the user interface for the book Catalogue</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

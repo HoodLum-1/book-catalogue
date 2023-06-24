@@ -12,7 +12,7 @@
 	<artifactId>management-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Management Service</name>
-	<description> A Spring Boot service responsible for managing the book catalog. It provides a RESTful API to perform CRUD operations on books and utilizes an in-memory database.</description>
+	<description> A Spring Boot service responsible for managing the book Catalogue. It provides a RESTful API to perform CRUD operations on books and utilizes an in-memory database.</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
