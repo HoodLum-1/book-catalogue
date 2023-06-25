@@ -31,7 +31,7 @@ public class BookController {
     public ResponseEntity<List<BookDto>> getAllBooks(
             @RequestParam(defaultValue = "${default.page}") int page,
             @RequestParam(defaultValue = "${default.size}") int size
-    ) {
+        ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<BookDto> bookPage = bookService.getAllBooks(pageable);
 
