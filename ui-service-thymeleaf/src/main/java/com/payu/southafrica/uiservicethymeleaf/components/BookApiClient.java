@@ -33,7 +33,7 @@ public class BookApiClient {
 
     public List<BookDto> getAllBooks() {
         try {
-            Invocation.Builder request = client.target(baseUrl + "/all-books").request(MediaType.APPLICATION_JSON);
+            Invocation.Builder request = client.target(baseUrl).request(MediaType.APPLICATION_JSON);
             Response response = request.get();
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
                 log.info("Fetching books...");
@@ -50,7 +50,7 @@ public class BookApiClient {
 
     public BookDto getBookById(Long id) {
         try {
-            Invocation.Builder request = client.target(baseUrl + "/book/" + id).request(MediaType.APPLICATION_JSON);
+            Invocation.Builder request = client.target(baseUrl + "/" + id).request(MediaType.APPLICATION_JSON);
             Response response = request.get();
             if (response.getStatus() == Response.Status.OK.getStatusCode()) {
                 log.info("Fetching book with id: {}", id);
@@ -66,7 +66,7 @@ public class BookApiClient {
 
     public void addBook(BookDto book) {
         try {
-            Invocation.Builder request = client.target(baseUrl + "/add-book").request(MediaType.APPLICATION_JSON);
+            Invocation.Builder request = client.target(baseUrl).request(MediaType.APPLICATION_JSON);
             Response response = request.post(Entity.json(book));
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 throw new CustomException("Failed to add book to API");
@@ -80,7 +80,7 @@ public class BookApiClient {
 
     public void updateBook(Long id, BookDto book) {
         try {
-            Invocation.Builder request = client.target(baseUrl + "/update-book/" + id).request(MediaType.APPLICATION_JSON);
+            Invocation.Builder request = client.target(baseUrl + "/" + id).request(MediaType.APPLICATION_JSON);
             Response response = request.put(Entity.json(book));
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 throw new CustomException("Failed to update book in API");
@@ -94,7 +94,7 @@ public class BookApiClient {
 
     public void deleteBook(Long id) {
         try {
-            Invocation.Builder request = client.target(baseUrl + "/delete-book/" + id).request(MediaType.APPLICATION_JSON);
+            Invocation.Builder request = client.target(baseUrl + "/" + id).request(MediaType.APPLICATION_JSON);
             Response response = request.delete();
             if (response.getStatus() != Response.Status.OK.getStatusCode()) {
                 throw new CustomException("Failed to delete book from API");
