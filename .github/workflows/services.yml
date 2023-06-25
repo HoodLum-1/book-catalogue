@@ -8,7 +8,7 @@ jobs:
     if: github.event.client_payload.job == 'management-service'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@feature/catalogue
       - name: Build Management Service
         working-directory: ./management-service
         run: mvn clean install
@@ -17,7 +17,7 @@ jobs:
     if: github.event.client_payload.job == 'ui-service-thymeleaf'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@feature/catalogue
       - name: Build UI Service Thymeleaf
         working-directory: ./ui-service-thymeleaf
         run: mvn clean install
