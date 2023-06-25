@@ -1,0 +1,24 @@
+name: services
+
+on: repository_dispatch
+
+jobs:
+
+  management-service:
+    if: github.event.client_payload.job == 'management-service'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build Management Service
+        working-directory: ./management-service
+        run: mvn clean install
+
+  ui-service-thymeleaf:
+    if: github.event.client_payload.job == 'ui-service-thymeleaf'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build UI Service Thymeleaf
+        working-directory: ./ui-service-thymeleaf
+        run: mvn clean install
+
