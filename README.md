@@ -46,15 +46,15 @@ The Swagger UI provides an interactive interface where you can explore the avail
 ## API Endpoints
 The Management Service exposes the following RESTful endpoints:
 
-- `GET /api/books/all-books` - Retrieve a list of all books
+- `GET /api/books` - Retrieve a list of all books
 
-- `GET /api/books/book/{id}` - Retrieve a specific bookEntity by ID
+- `GET /api/books/{id}` - Retrieve a specific bookEntity by ID
 
-- `POST /api/books/add-book` - Add a new bookEntity
+- `POST /api/books` - Add a new bookEntity
 
-- `PUT /api/books/update-book/{id}` - Update an existing bookEntity
+- `PUT /api/books/{id}` - Update an existing bookEntity
 
-- `DELETE /api/books/delete-book/{id}` - Delete a bookEntity
+- `DELETE /api/books/{id}` - Delete a bookEntity
 
 ## 📚 Book Data
 
