@@ -8,6 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -36,10 +40,15 @@ class BookServiceTest {
         List<BookEntity> books = Collections.singletonList(new BookEntity());
         when(bookRepository.findAll()).thenReturn(books);
 
-        List<BookDto> result = bookService.getAllBooks();
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<BookEntity> bookPage = new PageImpl<>(books, pageable, books.size());
+        when(bookRepository.findAll(pageable)).thenReturn(bookPage);
 
-        assertThat(bookRepository.findAll()).isNotNull();
-        assertThat(result).hasSize(1);
+        Page<BookDto> result = bookService.getAllBooks(pageable);
+        List<BookDto> content = result.getContent();
+
+        assertThat(result).isNotNull();
+        assertThat(content).hasSize(1);
     }
 
     @Test

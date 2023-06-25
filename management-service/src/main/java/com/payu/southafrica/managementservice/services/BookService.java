@@ -7,10 +7,9 @@ import com.payu.southafrica.managementservice.services.exception.BookNotFoundExc
 import com.payu.southafrica.managementservice.utils.BookMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.payu.southafrica.managementservice.utils.BookMapper.mapToDto;
 import static com.payu.southafrica.managementservice.utils.BookMapper.mapToEntity;
@@ -21,11 +20,10 @@ import static com.payu.southafrica.managementservice.utils.BookMapper.mapToEntit
 public class BookService {
     private final BookRepository bookRepository;
 
-    public List<BookDto> getAllBooks() {
+    public Page<BookDto> getAllBooks(Pageable pageable) {
         try {
-            return bookRepository.findAll().stream()
-                    .map(BookMapper::mapToDto)
-                    .collect(Collectors.toList());
+            Page<BookEntity> bookPage = bookRepository.findAll(pageable);
+            return bookPage.map(BookMapper::mapToDto);
         } catch (Exception e) {
             log.error("An error occurred while retrieving books: {}", e.getMessage());
             throw new BookNotFoundException(e.getMessage());
