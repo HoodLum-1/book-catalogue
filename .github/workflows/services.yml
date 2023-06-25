@@ -1,9 +1,11 @@
 name: services
 
-on: repository_dispatch
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-
   management-service:
     if: github.event.client_payload.job == 'management-service'
     runs-on: ubuntu-latest
@@ -21,4 +23,3 @@ jobs:
       - name: Build UI Service Thymeleaf
         working-directory: ./ui-service-thymeleaf
         run: mvn clean install
-
